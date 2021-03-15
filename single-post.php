@@ -43,6 +43,7 @@
         <?php include('sidebar.php') ?>
         <!-- /.blog-sidebar -->
     </div><!-- /.row -->
+    <?php include('comments.php')?>
 </main><!-- /.container -->
 
 <?php include('footer.php') ?>

@@ -27,4 +27,10 @@
         $statement->setFetchMode(PDO::FETCH_ASSOC);
         return $statement->fetch();
     }
+
+    function insertIntoDB($connection, $sql) {
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        return;
+    }
 ?>
