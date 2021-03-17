@@ -36,18 +36,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <main role="main" class="container">
     <div class="row">
         <div class="col-sm-8 blog-main">
-        <form class="create-new-post" method="POST" action="create-post.php">
-            <label>Title</label>
-            <input type="text" name="title" required>
-    
-            <label>Content</label>
-            <textarea name="content" required></textarea>
-        
-            <label>Author</label>
-            <input type="text" name="author" required>
-        
-            <button>Add post</button>
-        </form>
+            <form method="POST" action="create-post.php">
+                <div class="form-group">
+                    <label>Title</label>
+                    <input class="form-control" type="text" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label>Content</label>
+                    <textarea class="form-control" name="content" required></textarea>
+                </div>
+            
+                <div class="form-group">
+                    <label>Author</label>
+                    <input class="form-control" type="text" name="author" required>
+                </div>
+            
+                <button class="btn btn-primary">Add post</button>
+            </form>
         </div><!-- /.blog-main -->
         <?php include('template-parts/sidebar.php') ?>
         <!-- /.blog-sidebar -->
