@@ -15,18 +15,15 @@ if (isset($_GET['post_id'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $sqlAuthor = "SELECT id FROM author;";
     $authors = getDataFromDatabase($connection, $sqlAuthor);
-
+    
     $random_author = array_rand(array_map(function ($author) {
         return $author['id'];
     }, $authors), 1);
 
-    var_dump($singlePost['id']);
-
     if ($_POST['comment']) {
-       
-        $sqlInserComment = "INSERT INTO comments (author_id, text, post_id) VALUES ({$authors[$random_author]['id']}, '{$_POST['comment']}', {$_GET['post_id']});";
-        // var_dump($sqlInserComment);
-        // insertIntoDB($connection, $sqlInserComment);
+        $sql = "INSERT INTO comments (author_id, text, post_id) VALUES ({$authors[$random_author]['id']}, '{$_POST['comment']}', {$_GET['post_id']});";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
         header("Location: single-post.php?post_id={$_GET['post_id']}");
     }
 }
@@ -64,13 +61,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <p> <?php echo($singlePost['body']) ?></p>
             </div>
             <?php include('template-parts/comments.php')?>
-            <form class="form" method="POST" action="single-post.php">
-                <div class="form-group">
-                    <label>Leave your comment here:</label>
-                    <textarea class="form-control" name="comment" required></textarea>
-                </div>
-                <button class="btn btn-primary 10-bottom">Add comment</button>
-            </form>
         </div><!-- /.blog-main -->
         <?php include('template-parts/sidebar.php') ?>
         <!-- /.blog-sidebar -->

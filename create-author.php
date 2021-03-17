@@ -36,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <main role="main" class="container">
     <div class="row">
         <div class="col-sm-8 blog-main">
+            <h2>Create Author</h2>
             <form class="form" method="POST" action="create-author.php">
                 <div class="form-group">
                     <label>First Name</label>

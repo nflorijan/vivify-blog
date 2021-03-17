@@ -38,15 +38,18 @@ $authors = getDataFromDatabase($connection, $sqlAuthor);
 <main role="main" class="container">
     <div class="row">
         <div class="col-sm-8 blog-main">
+            <h2>Create Post</h2>
             <form class="form" method="POST" action="create-post.php">
                 <div class="form-group">
                 <label>Select author</label>
                     <select class="form-control" name="author" placeholder="Select Author" >
                         <?php foreach($authors as $author) {
                             ?> <option value="<?php echo $author['id'] ?>">
-                                <?php
-                                echo ($author['first_name']) . ' ' . ($author['last_name']);
-                                ?>
+                                    <span>
+                                        <?php
+                                        echo ($author['first_name']) . ' ' . ($author['last_name']);
+                                        ?>
+                                    </span>
                                 </option>
                         <?php } ?>
                     </select>
