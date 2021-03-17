@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
 
-<?php include('header.php') ?>
+<?php include('template-parts/header.php') ?>
 
 <main role="main" class="container">
     <div class="row">
@@ -49,11 +49,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <button>Add post</button>
         </form>
         </div><!-- /.blog-main -->
-        <?php include('sidebar.php') ?>
+        <?php include('template-parts/sidebar.php') ?>
         <!-- /.blog-sidebar -->
     </div><!-- /.row -->
 </main><!-- /.container -->
 
-<?php include('footer.php') ?>
+<?php include('template-parts/footer.php') ?>
 </body>
 </html>

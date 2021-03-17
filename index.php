@@ -26,7 +26,7 @@
 
 <body>
 
-<?php include('header.php') ?>
+<?php include('template-parts/header.php') ?>
 
 <main role="main" class="container">
     <div class="row">
@@ -50,11 +50,11 @@
             </nav>
 
         </div><!-- /.blog-main -->
-        <?php include('sidebar.php') ?>
+        <?php include('template-parts/sidebar.php') ?>
         <!-- /.blog-sidebar -->
     </div><!-- /.row -->
 </main><!-- /.container -->
 
-<?php include('footer.php') ?>
+<?php include('template-parts/footer.php') ?>
 </body>
 </html>
