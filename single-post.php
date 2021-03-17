@@ -4,17 +4,33 @@ if (isset($_GET['post_id'])) {
   $sql = "SELECT * FROM posts WHERE posts.id = {$_GET['post_id']}";
   $singlePost = getDataFromSinglePost($connection, $sql);
 }
+
+if (isset($_GET['post_id'])) {
+    $sqlAuthorID = "SELECT author_id FROM posts WHERE posts.id = {$_GET['post_id']}";
+    $getAuthorID = getDataFromSinglePost($connection, $sqlAuthorID);
+    $sqlAuthor = "SELECT * FROM author WHERE author.id = $getAuthorID[author_id]";
+    $getAuthor = getDataFromSinglePost($connection, $sqlAuthor);
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $id = $_GET['post_id'];
-  $content = $_POST['content'];
-  $author = $_POST['author'];
-  $sqlinsertComment = "INSERT INTO comments (text, author, post_id) VALUES ('$content', '$author', '$id')";
-  insertIntoDB($connection, $sqlinsertComment);
-  header('location: single-post.php');
+    $sqlAuthor = "SELECT id FROM author;";
+    $authors = getDataFromDatabase($connection, $sqlAuthor);
+
+    $random_author = array_rand(array_map(function ($author) {
+        return $author['id'];
+    }, $authors), 1);
+
+    var_dump($singlePost['id']);
+
+    if ($_POST['comment']) {
+       
+        $sqlInserComment = "INSERT INTO comments (author_id, text, post_id) VALUES ({$authors[$random_author]['id']}, '{$_POST['comment']}', {$_GET['post_id']});";
+        // var_dump($sqlInserComment);
+        // insertIntoDB($connection, $sqlInserComment);
+        header("Location: single-post.php?post_id={$_GET['post_id']}");
+    }
 }
 ?>
-
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -43,19 +59,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="col-sm-8 blog-main">
             <div class="blog-post">
                 <h2 class="blog-post-title"><?php echo($singlePost['title']) ?></h2>
-                <p class="blog-post-meta"><?php echo($singlePost['created_at']) ?> <a href="#"> <?php echo($singlePost['author']) ?></a></p>
+                <p class="blog-post-meta"><?php echo($singlePost['created_at']) ?> <a class="<?php if($getAuthor['gender'] === 'Male') { echo 'is-male'; } else if(($getAuthor['gender'] === 'Female')) { echo 'is-female';} ?>" href="#"> <?php echo ($getAuthor['first_name']) . ' ' . ($getAuthor['last_name'])?></a></p>
 
                 <p> <?php echo($singlePost['body']) ?></p>
             </div>
             <?php include('template-parts/comments.php')?>
-            <form class="form" method="POST">
-                <div class="form-group">
-                    <label>Author</label>
-                    <input class="form-control" type="text" name="author" required>
-                </div>
+            <form class="form" method="POST" action="single-post.php">
                 <div class="form-group">
                     <label>Leave your comment here:</label>
-                    <textarea class="form-control" name="content" required></textarea>
+                    <textarea class="form-control" name="comment" required></textarea>
                 </div>
                 <button class="btn btn-primary 10-bottom">Add comment</button>
             </form>

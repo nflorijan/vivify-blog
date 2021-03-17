@@ -9,7 +9,7 @@
         foreach ($comments as $comment) {
         ?>
         <li>
-            <span>posted by: <strong><?php echo ($comment['author']) ?></strong> </span>
+            <span>posted by: <strong><?php echo ($comment['author_id']) ?></strong> </span>
             <div>
             <?php echo ($comment['text']) ?>
             </div>

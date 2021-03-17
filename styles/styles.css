@@ -30,3 +30,15 @@ h1, h2, h3, h4, h5, h6 {
     padding: 20px;
     margin-bottom: 30px;
 }
+
+.is-male {
+    color: #007bff;
+}
+
+.is-female {
+    color: #ff007f;
+}
+
+.is-female:hover {
+    color: #b34848;
+}

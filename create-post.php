@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     insertIntoDB($connection, $sql);
     header('location: index.php');
 }
-$sqlAuthor = "SELECT id, first_name, last_name FROM author";
+$sqlAuthor = "SELECT id, first_name, last_name, gender FROM author";
 $authors = getDataFromDatabase($connection, $sqlAuthor);
 ?>
 <!doctype html>
@@ -46,7 +46,8 @@ $authors = getDataFromDatabase($connection, $sqlAuthor);
                             ?> <option value="<?php echo $author['id'] ?>">
                                 <?php
                                 echo ($author['first_name']) . ' ' . ($author['last_name']);
-                                ?></option>
+                                ?>
+                                </option>
                         <?php } ?>
                     </select>
                 </div>
