@@ -1,20 +1,14 @@
+<?php include('db.php')?>
 <?php
-include('db.php');
-if (isset($_GET['post_id'])) {
-  $sql = "SELECT * FROM posts WHERE posts.id = {$_GET['post_id']}";
-  $singlePost = getDataFromSinglePost($connection, $sql);
-}
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $id = $_GET['post_id'];
-  $content = $_POST['content'];
-  $author = $_POST['author'];
-  $sqlinsertComment = "INSERT INTO comments (text, author, post_id) VALUES ('$content', '$author', '$id')";
-  insertIntoDB($connection, $sqlinsertComment);
-  header('location: single-post.php');
+    $first_name = $_POST['first_name'];
+    $last_name = $_POST['last_name'];
+    $gender = $_POST['gender'];
+    $sql = "INSERT INTO author (first_name, last_name, gender) VALUES ('$first_name', '$last_name', '$gender')";
+    insertIntoDB($connection, $sql);
+    header('location: index.php');
 }
 ?>
-
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -36,34 +30,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
+
 <?php include('template-parts/header.php') ?>
 
 <main role="main" class="container">
     <div class="row">
         <div class="col-sm-8 blog-main">
-            <div class="blog-post">
-                <h2 class="blog-post-title"><?php echo($singlePost['title']) ?></h2>
-                <p class="blog-post-meta"><?php echo($singlePost['created_at']) ?> <a href="#"> <?php echo($singlePost['author']) ?></a></p>
-
-                <p> <?php echo($singlePost['body']) ?></p>
-            </div>
-            <?php include('template-parts/comments.php')?>
-            <form class="form" method="POST">
+            <form class="form" method="POST" action="create-author.php">
                 <div class="form-group">
-                    <label>Author</label>
-                    <input class="form-control" type="text" name="author" required>
+                    <label>First Name</label>
+                    <input class="form-control" type="text" name="first_name" required>
                 </div>
                 <div class="form-group">
-                    <label>Leave your comment here:</label>
-                    <textarea class="form-control" name="content" required></textarea>
+                    <label>Last Name</label>
+                    <input class="form-control" type="text" name="last_name" required>
                 </div>
-                <button class="btn btn-primary 10-bottom">Add comment</button>
+                <div class="form-group">
+                    <label for="male">Male</label>
+                    <input id="male" name="gender"  type="radio" value="Male">
+                </div>
+                <div class="form-group">
+                    <label for="female">Female</label>
+                    <input id="female" name="gender" type="radio" value="Female">
+                </div>
+                <button class="btn btn-primary">Create Author</button>
             </form>
         </div><!-- /.blog-main -->
         <?php include('template-parts/sidebar.php') ?>
         <!-- /.blog-sidebar -->
     </div><!-- /.row -->
 </main><!-- /.container -->
+
 <?php include('template-parts/footer.php') ?>
 </body>
 </html>

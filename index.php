@@ -1,7 +1,7 @@
 <?php include('db.php')?>
 
 <?php
-    $sql = "SELECT id, title, LEFT(body, 100) AS fmt_body, author, DATE_FORMAT(created_at, '%e %b %Y') AS fmt_created_at FROM posts ORDER BY created_at DESC";
+    $sql = "SELECT id, title, LEFT(body, 100) AS fmt_body, author_id, DATE_FORMAT(created_at, '%e %b %Y') AS fmt_created_at FROM posts ORDER BY created_at DESC";
     $posts = getDataFromDatabase($connection, $sql);
 ?>
 
@@ -36,7 +36,7 @@
         ?>
             <div class="blog-post">
                 <a href="single-post.php?post_id=<?php echo ($post['id']) ?>" class="blog-post-title"><?php echo($post['title']) ?></a>
-                <p class="blog-post-meta"><?php echo($post['fmt_created_at']) ?><a href="#"> <?php echo($post['author']) ?></a></p>
+                <p class="blog-post-meta"><?php echo($post['fmt_created_at']) ?><a href="#"> <?php echo($post['author_id']) ?></a></p>
                 <p> <?php echo($post['fmt_body']) ?>...</p>
             </div><!-- /.blog-post -->
         <?php

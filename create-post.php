@@ -4,10 +4,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = $_POST['title'];
     $content = $_POST['content'];
     $author = $_POST['author'];
-    $sql = "INSERT INTO posts (title, body, author, created_at) VALUES ('$title', '$content', '$author', now())";
+    $sql = "INSERT INTO posts (title, body, author_id, created_at) VALUES ('{$title}', '{$content}', $author, NOW())";
     insertIntoDB($connection, $sql);
     header('location: index.php');
 }
+$sqlAuthor = "SELECT id, first_name, last_name FROM author";
+$authors = getDataFromDatabase($connection, $sqlAuthor);
 ?>
 <!doctype html>
 <html lang="en">
@@ -38,9 +40,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="col-sm-8 blog-main">
             <form class="form" method="POST" action="create-post.php">
                 <div class="form-group">
-                    <label>Author</label>
-                    <input class="form-control" type="text" name="author" required>
+                <label>Select author</label>
+                    <select class="form-control" name="author" placeholder="Select Author" >
+                        <?php foreach($authors as $author) {
+                            ?> <option value="<?php echo $author['id'] ?>">
+                                <?php
+                                echo ($author['first_name']) . ' ' . ($author['last_name']);
+                                ?></option>
+                        <?php } ?>
+                    </select>
                 </div>
+
                 <div class="form-group">
                     <label>Title</label>
                     <input class="form-control" type="text" name="title" required>
