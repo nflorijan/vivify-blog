@@ -1,9 +1,13 @@
+<?php
+$url = $_SERVER['REQUEST_URI'];
+$selected = 'active';
+?>
 <header>
     <div class="blog-masthead">
         <div class="container">
             <nav class="nav">
-                <a class="nav-link active" href="./index.php">Home</a>
-                <a class="nav-link" href="./create-post.php">Create Post</a>
+                <a class="nav-link <?php echo (strpos($url, 'index.php') !== false) ? $selected : '' ?>" href="./index.php">Home</a>
+                <a class="nav-link <?php echo (strpos($url, 'create-post.php') !== false) ? $selected : '' ?>" href="./create-post.php">Create Post</a>
                 <a class="nav-link" href="#">New features</a>
                 <a class="nav-link" href="#">Press</a>
                 <a class="nav-link" href="#">New hires</a>
