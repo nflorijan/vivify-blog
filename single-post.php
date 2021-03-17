@@ -39,13 +39,12 @@
 
                 <p> <?php echo($singlePost['body']) ?></p>
             </div>
+            <?php include('template-parts/comments.php')?>
         </div><!-- /.blog-main -->
         <?php include('template-parts/sidebar.php') ?>
         <!-- /.blog-sidebar -->
     </div><!-- /.row -->
-    <?php include('template-parts/comments.php')?>
 </main><!-- /.container -->
-
 <?php include('template-parts/footer.php') ?>
 </body>
 </html>
