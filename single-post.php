@@ -1,9 +1,17 @@
-<?php include('db.php')?>
 <?php
-    if (isset($_GET['post_id'])) {
-    $sql = "SELECT * FROM posts WHERE posts.id = {$_GET['post_id']}";
-    $singlePost = getDataFromSinglePost($connection, $sql);
-    }
+include('db.php');
+if (isset($_GET['post_id'])) {
+  $sql = "SELECT * FROM posts WHERE posts.id = {$_GET['post_id']}";
+  $singlePost = getDataFromSinglePost($connection, $sql);
+}
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $id = $_GET['post_id'];
+  $content = $_POST['content'];
+  $author = $_POST['author'];
+  $sqlinsertComment = "INSERT INTO comments (text, author, post_id) VALUES ('$content', '$author', '$id')";
+  insertIntoDB($connection, $sqlinsertComment);
+  // header('location: single-post.php');
+}
 ?>
 
 
@@ -40,6 +48,17 @@
                 <p> <?php echo($singlePost['body']) ?></p>
             </div>
             <?php include('template-parts/comments.php')?>
+            <form class="form" method="POST">
+                <div class="form-group">
+                    <label>Author</label>
+                    <input class="form-control" type="text" name="author" required>
+                </div>
+                <div class="form-group">
+                    <label>Leave your comment here:</label>
+                    <textarea class="form-control" name="content" required></textarea>
+                </div>
+                <button class="btn btn-primary 10-bottom">Add comment</button>
+            </form>
         </div><!-- /.blog-main -->
         <?php include('template-parts/sidebar.php') ?>
         <!-- /.blog-sidebar -->

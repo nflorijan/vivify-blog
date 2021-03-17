@@ -24,3 +24,9 @@ h1, h2, h3, h4, h5, h6 {
 .create-new-post input {
     display: block;
 }
+
+.form {
+    background-color: #f5f5f5;
+    padding: 20px;
+    margin-bottom: 30px;
+}
