@@ -35,14 +35,12 @@ $authors = getDataFromDatabase($connection, $sqlAuthor);
                 <form class="form" method="POST" action="create-post.php">
                     <div class="form-group">
                     <label>Select author</label>
-                        <select class="form-control" name="author" placeholder="Select Author" >
+                        <select class="form-control <?php echo $author['gender'] ?>" name="author" placeholder="Select Author" >
                             <?php foreach($authors as $author) {
-                                ?> <option value="<?php echo $author['id'] ?>">
-                                        <span>
+                                ?> <option  class="<?php echo $author['gender'] ?>" value="<?php echo $author['id'] ?>">
                                             <?php
                                             echo ($author['first_name']) . ' ' . ($author['last_name']);
                                             ?>
-                                        </span>
                                     </option>
                             <?php } ?>
                         </select>
@@ -63,5 +61,17 @@ $authors = getDataFromDatabase($connection, $sqlAuthor);
         </div><!-- /.row -->
     </main><!-- /.container -->
     <?php include('template-parts/footer.php') ?>
+
+    <script>
+        const select = document.querySelector("select");
+       
+        select.addEventListener("change", () => {
+        if (select.querySelector(`option[value="${select.value}"]`).className === 'Male') {
+            select.style.color = "#007bff";
+        } else {
+            select.style.color = "#ff007f";
+        }
+        });
+    </script>
     </body>
 </html>
